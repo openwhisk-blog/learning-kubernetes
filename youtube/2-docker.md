@@ -1,4 +1,4 @@
-cd ..
+cd ../..
 pwd
 cd openwhisk-docker-image
 PS1="\$ "
