@@ -1,4 +1,4 @@
-cd ../..
+cd ..
 pwd
 cd openwhisk-docker-image
 PS1="\$ "
@@ -7,7 +7,7 @@ docker kill openwhisk
 docker ps | grep wsk | awk '{ print $1}' | xargs docker kill
 rm -Rvf openwhisk
 
-# Running Standalone OpenWhisk:
+# 1. Running Standalone OpenWhisk
 
 docker run \
 --name openwhisk --hostname openwhisk \
@@ -31,7 +31,7 @@ docker ps --format '[{{.Names}}] {{.Image}}'
 
 
 
-# Deploy a simple function
+# 2 Deploy a simple function
 
 ## first setup wsk
 cd openwhisk-docker-image/
@@ -88,7 +88,7 @@ docker ps --format '[{{.Names}}] {{.Image}}'
 
 
 
-# Compilation
+# 4. Compilation
 
 ## prerequisites
 docker version
@@ -113,6 +113,9 @@ wsk
 
 
 
+
+
+
 ## Building openwhisk standalone
 
 ## downloading source code
@@ -127,7 +130,7 @@ java -jar ./bin/openwhisk-standalone.jar
 
 
 
-# Dockerfile
+# 5. Dockerfile
 FROM scala as builder
 ## docker run --entrypoint=/bin/bash -ti scala
 WORKDIR /
@@ -144,7 +147,24 @@ RUN cd openwhisk && ./gradlew :core:standalone:build
 
 
 
-# Building and push the image
+# 6. Building and push the image
 docker build . -t sciabarracom/openwhisk-standalone:2020-07-01
 docker push sciabarracom/openwhisk-standalone:2020-07-01
 ### pushed to docker hub
+
+
+
+
+
+
+
+# 7 shutdown and startup
+# press control 
+docker ps
+docker kill <id>
+docker rm <id>
+cat run.sh
+./run.sh
+cat end.sh
+./end.sh
+docker ps
